@@ -1,4 +1,29 @@
 extends ../layout/index
 block contenido
-    div
-        h2.text-center.text-2xl.font-extrabold crea tu cuenta
+    .py-10
+        h1.text-4xl.my-10.font-extrabold.text-center Alerta
+            span.font-normal Ruido
+        h2.text-center.text-2xl.font-extrabold= pagina
+
+        .mt-8.mx-auto.max-w-md
+            .bg-green-400.py-8.px-4.shadow
+                form.space-y-5
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="nombre") Nombre 
+                        input#nombre.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Tu Nombre" type="text" name="nombre") 
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="apellido") Apellido 
+                        input#apellido.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Apellido" type="text" name="apellido")
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="apellido") Email de Registro 
+                        input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Email" type="email" name="email")
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="telefono") Telefono 
+                        input#telefono.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Telefono" type="number" name="telefono")
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="password") Contraseña 
+                        input#password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Contraseña" type="password" name="password")
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="repetir_password") Repetir Contraseña 
+                        input#repetir_password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Repetir Contraseña" type="password" name="repetir_password")
+                    input( class="w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer" type="submit" value= "Crear Cuenta")   
