@@ -1,0 +1,43 @@
+{
+  "name": "polucion_sonora_mvc",
+  "version": "1.0.0",
+  "description": "Sistema para obtener el titulo de licenciatura en analisis de sistema informaticos de la unae.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "css": "postcss public/css/tailwind.css -o public/css/app.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sariavaal/POLUCION_SONORA_MVC.git"
+  },
+  "keywords": [
+    "MVC",
+    "pug",
+    "tailwind",
+    "css",
+    "node",
+    "js",
+    "MySQL",
+    "sequelize"
+  ],
+  "author": "Sara Armoa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sariavaal/POLUCION_SONORA_MVC/issues"
+  },
+  "homepage": "https://github.com/sariavaal/POLUCION_SONORA_MVC#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "nodemon": "^3.0.1",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.3.5"
+  }
+}
