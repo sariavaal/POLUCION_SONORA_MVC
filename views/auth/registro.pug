@@ -15,7 +15,7 @@ block contenido
                         label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="apellido") Apellido 
                         input#apellido.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Apellido" type="text" name="apellido")
                     div 
-                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="apellido") Email de Registro 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="email") Email de Registro 
                         input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Email" type="email" name="email")
                     div 
                         label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="telefono") Telefono 
@@ -26,4 +26,13 @@ block contenido
                     div 
                         label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="repetir_password") Repetir Contraseña 
                         input#repetir_password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Repetir Contraseña" type="password" name="repetir_password")
+                    
+                    // politicas de privacidad
+                    label.inline-flex.items-center.cursor-pointer
+                    input(type="checkbox", class="h-5 w-5 text-green-800")
+                    span.ml-2
+                    | He leído y acepto los
+                    a(href="https://drive.google.com/uc?export=download&id=1kBhvjenvsqYI35J_HM-k3PaMpbMWPfnu", class="text-blue-700 hover:underline focus:outline-none focus:shadow-outline") Términos
+                    | y Condiciones de uso
+
                     input( class="w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer" type="submit" value= "Crear Cuenta")   
