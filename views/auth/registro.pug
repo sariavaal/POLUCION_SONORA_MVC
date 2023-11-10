@@ -10,12 +10,12 @@ block contenido
                 form.space-y-5
                     div 
                         label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="nombre") Nombre 
-                        input#nombre.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Tu Nombre" type="text" name="nombre") 
+                        input#nombre.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Nombre" type="text" name="nombre") 
                     div 
                         label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="apellido") Apellido 
                         input#apellido.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Apellido" type="text" name="apellido")
                     div 
-                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="email") Email de Registro 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="email") Email
                         input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Email" type="email" name="email")
                     div 
                         label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="telefono") Telefono 
@@ -33,6 +33,9 @@ block contenido
                     span.ml-2
                     | He leído y acepto los
                     a(href="https://drive.google.com/uc?export=download&id=1kBhvjenvsqYI35J_HM-k3PaMpbMWPfnu", class="text-blue-700 hover:underline focus:outline-none focus:shadow-outline") Términos
-                    | y Condiciones de uso
+                    | y condiciones de uso
+                    div.flex.items-center.justify-between
+                        a.text-gray-700.text-xs(href="/auth/login") ¿Ya tienes cuenta? Inicia sesión.
+                        a.text-gray-700.text-xs(href="/auth/olvide-password") Olvidé mi contraseña
 
                     input( class="w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer" type="submit" value= "Crear Cuenta")   
