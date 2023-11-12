@@ -34,7 +34,7 @@ block contenido
                     
                     // politicas de privacidad
                     label.inline-flex.items-center.cursor-pointer
-                    input(type="checkbox", class="h-5 w-5 text-green-800")
+                    input(type="checkbox", name="miCheckbox",checked=(usuario && usuario.miCheckbox === true), class="h-5 w-5 text-green-800")
                     span.ml-2
                     | He leído y acepto los
                     a(href="https://drive.google.com/uc?export=download&id=1kBhvjenvsqYI35J_HM-k3PaMpbMWPfnu", class="text-blue-700 hover:underline focus:outline-none focus:shadow-outline") Términos
@@ -43,4 +43,4 @@ block contenido
                         a.text-gray-700.text-xs(href="/auth/login") ¿Ya tienes cuenta? Inicia sesión.
                         a.text-gray-700.text-xs(href="/auth/olvide-password") Olvidé mi contraseña
 
-                    input( class="w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer" type="submit" value= "Crear Cuenta")   
+                    input( class="w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer" type="submit" value= "Crear Cuenta")
