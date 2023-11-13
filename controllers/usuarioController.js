@@ -1,5 +1,7 @@
 import {check, validationResult } from 'express-validator'
 import Usuario from '../models/Usuario.js'
+import {generarId} from '../helpers/tokens.js'
+import{emailRegistro} from '../helpers/emails.js'
 
 const formularioLogin = (req, res) => {
     res.render('auth/login', {
@@ -14,48 +16,49 @@ const formularioRegistro = (req, res) =>{
 }
 
 const registrar = async (req, res) => {
-    //console.log(req.body)
-    //validacion de los otros campos
-    await check('nombre').notEmpty().withMessage('El nombre es obligatorio').run(req)
-    await check('apellido').notEmpty().withMessage('El apellido es obligatorio').run(req)
-    await check('email').isEmail().withMessage('Eso no parece un email').run(req)
-    await check('telefono').notEmpty().withMessage('El número de teléfono es obligatorio').isNumeric().withMessage('El número de teléfono es un valor inválido').run(req)
-    await check('password').isLength({min: 6}).withMessage('La contraseña debe ser de al menos 6 caracteres').run(req)
-    await check('repetir_password').equals(req.body.password).withMessage('La contraseña no coincide').run(req)
-     // Validar el checkbox
-     const validacionCheckbox = await check('miCheckbox').isIn(['on']).withMessage('Debes aceptar los términos y condiciones de uso').run(req);
-     //console.log('Después de las validaciones:', req.body);
-    let resultado = validationResult(req)
-    //const errors = validationResult(req);
-    //console.log('Errores de validación:', errors.array());
-    //verificar que el resultado este vacio
-    if(!resultado.isEmpty() || !validacionCheckbox.isEmpty()) {
-        //errores
-        return res.render('auth/registro',{
-            pagina: 'Crear Cuenta',
-            errores: [...resultado.array(), ...validacionCheckbox.array()],
-            usuario: {
-                nombre: req.body.nombre,
-                apellido: req.body.apellido,
-                email: req.body.email,
-                telefono: req.body.telefono,
-            },
-            VerificarCheckbox: req.body.miCheckbox === 'on',
-        })
+    // Validar los campos
+    await Promise.all([
+        check('nombre').notEmpty().withMessage('El nombre es obligatorio').run(req),
+        check('apellido').notEmpty().withMessage('El apellido es obligatorio').run(req),
+        check('email').isEmail().withMessage('Eso no parece un email').run(req),
+        check('telefono').notEmpty().withMessage('El número de teléfono es obligatorio').isNumeric().withMessage('El número de teléfono es un valor inválido').run(req),
+        check('password').isLength({min: 6}).withMessage('La contraseña debe ser de al menos 6 caracteres').run(req),
+        check('repetir_password').equals(req.body.password).withMessage('La contraseña no coincide').run(req),
+    ]);
 
-    }
-    //extraer los datos
-    const {nombre, apellido, email,telefono, password, VerificarCheckbox} = req.body
-    // Verificar que el checkbox "confirmado" esté marcado
-    if (!VerificarCheckbox) {
-        return res.render('auth/registro', {
-            pagina: 'Crear Cuenta',
-            errores: [{ msg: 'Debes aceptar los términos y condiciones de uso' }],
-            usuario: {
-                nombre,
-                apellido,
-                email,
-                telefono,
+    // Validar el checkbox
+    await check('miCheckbox').notEmpty().withMessage('Debes aceptar los términos y condiciones de uso').run(req);
+    // Obtener los resultados de la validación
+const errores = validationResult(req);
+// Verificar si hay errores de validación
+if (!errores.isEmpty()) {
+    // Renderizar la vista con errores
+    return res.render('auth/registro', {
+        pagina: 'Crear Cuenta',
+        errores: errores.array(),
+        usuario: {
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            email: req.body.email,
+            telefono: req.body.telefono,
+        },
+        VerificarCheckbox: req.body.miCheckbox === 'on',
+    });
+}
+
+// Extraer los datos
+const { nombre, apellido, email, telefono, password } = req.body;
+
+// Verificar el checkbox
+if (req.body.miCheckbox !== 'on') {
+    return res.render('auth/registro', {
+        pagina: 'Crear Cuenta',
+        errores: [{ msg: 'Debes aceptar los términos y condiciones de uso' }],
+        usuario: {
+            nombre,
+            apellido,
+            email,
+            telefono,
         },
     });
 }
@@ -74,14 +77,41 @@ const registrar = async (req, res) => {
         })
     }
     //almacenar un usuario
-    await Usuario.create({
+    const usuario = await Usuario.create({
         nombre,
         apellido,
         email,
         telefono,
         password,
-        token: 123
+        token: generarId()
     }) 
+
+    //Envia email de confirmacion
+    emailRegistro({
+        nombre: usuario.nombre,
+        email: usuario.email,
+        token: usuario.token
+    })
+
+
+    //Mostrar mensaje de confirmacion
+    res.render('templates/mensaje', {
+        pagina:'Cuenta creada correctamente',
+        mensaje: 'Hemos enviado un email de confirmación, presiona en el enlace'
+
+    })
+}
+//Función que comprueba una cuenta
+const confirmar = (req, res, next) => {
+    const { token } = req.params;
+    console.log ( token )
+    //verificar si el token es valido
+
+    //Confirmar la cuenta
+
+    next();
+    
+
 }
 
 const formularioOlvidePassword = (req, res) =>{
@@ -93,6 +123,7 @@ const formularioOlvidePassword = (req, res) =>{
 export {
     formularioLogin,
     formularioRegistro,
+    confirmar,
     formularioOlvidePassword,
     registrar
 }
