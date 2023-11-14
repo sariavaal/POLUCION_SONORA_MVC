@@ -5,7 +5,10 @@ html(lang="es")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Alerta Ruido | #{pagina}
         link(rel="stylesheet", href="/css/app.css")
-    body.min-h-screen.bg-gray-200 
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css")
 
+    body.min-h-screen.bg-gray-200
+        if barra
+            include header
         main(class="mx-auto container mt-5 px-2")
-            block contenido
+        block contenido

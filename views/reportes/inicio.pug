@@ -1,0 +1,69 @@
+extends ../layout/index
+
+block contenido
+  .py-10
+    h1.text-4xl.my-10.font-extrabold.text-center Alerta
+      span.font-normal Ruido
+    h2.text-center.text-2xl.font-extrabold= pagina
+    p.text-xl.font-bold.text-center.my-10= mensaje
+
+    // Sección de preguntas y respuestas
+    div(class="max-w-xl mx-auto my-10")
+      div.bg-green-400.rounded-md.p-8.px-4
+        div.bg-green-300.rounded-md.p-8.px-4.mb-4
+          // Agregamos el icono de flecha y el cuadro
+          div.flex.items-center.cursor-pointer
+            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
+            div.w-full
+                div.flex.flex-col
+                    h2.text-2xl.font-semibold.question ¿Cuál es la ley que aborda la contaminación sonora?
+                    p.respuesta.hidden.mt-2 Ley Nº 1100 / DE PREVENCION DE LA POLUCION SONORA regula la emisión de ruidos para proteger la salud y bienestar de personas y seres vivos, asegurando la protección de la población, el ambiente y bienes afectados por la exposición a dichos sonidos.
+        div.bg-green-300.rounded-md.p-8.px-4.mb-4
+          div.flex.items-center.cursor-pointer
+            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
+            div.w-full
+                div.flex.flex-col
+                    h2.text-2xl.font-semibold.question Qué se considera ruido según la ley?
+                    p.respuesta.hidden.mt-2 Será considerado ruido a todo sonido que, por su intensidad, duración o frecuencia, supere los niveles fijados como máximos permitidos por las normativas técnicas de la autoridad de aplicación y que por ello causen molestia, perturbación, perjuicio o daño al bienestar o a la salud de las personas o de otros seres vivos, a bienes públicos; privados o al ambiente.
+        div.bg-green-300.rounded-md.p-8.px-4.mb-4
+          div.flex.items-center.cursor-pointer
+            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
+            div.w-full
+                div.flex.flex-col
+                    h2.text-2xl.font-semibold.question
+                        | ¿Cuándo puedo denunciar?
+                    p.respuesta.hidden.mt-2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, dolores atque? Nulla amet consequatur distinctio accusantium perferendis? Repellat odio, dignissimos quo delectus sapiente, modi unde deserunt possimus ipsum ipsa esse?
+        div.bg-green-300.rounded-md.p-8.px-4.mb-4
+          div.flex.items-center.cursor-pointer
+            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
+            div.w-full
+                div.flex.flex-col
+                    h2.text-2xl.font-semibold.question ¿Pregunta 3?
+                    p.respuesta.hidden.mt-2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet eligendi neque, nesciunt vel dolore unde dicta asperiores reiciendis! Quod dolor eveniet possimus cumque commodi architecto, voluptas praesentium molestias quo nesciunt?
+        div.bg-green-300.rounded-md.p-8.px-4.mb-4
+          div.flex.items-center.cursor-pointer
+            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
+            div.w-full
+                div.flex.flex-col
+                    h2.text-2xl.font-semibold.question ¿Pregunta 3?
+                    p.respuesta.hidden Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia totam cum reprehenderit fuga doloremque facere illo similique ullam corrupti. Cupiditate quod nesciunt sit eaque architecto quisquam quibusdam. Nemo, impedit quam!
+        div.bg-green-300.rounded-md.p-8.px-4.mb-4
+          div.flex.items-center.cursor-pointer
+            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
+            div.w-full
+                div.flex.flex-col
+                    h2.text-2xl.font-semibold.question ¿Pregunta 3?
+                    p.respuesta.hidden Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, vitae excepturi rem minus sunt veritatis veniam sint deserunt ducimus cumque placeat? Accusantium provident optio facilis at nisi iste iure beatae.
+        // Enlace para realizar un reporte
+        div.flex.items-center.justify-center.mt-4
+            a(href="/reportes/crear" class="bg-green-600 hover:bg-green-800 text-white uppercase font-bold py-2 px-4 rounded-full cursor-pointer") Realizar un Reporte
+
+  // Script para manejar los desplegables
+  script.
+    const preguntas = document.querySelectorAll('.question');
+
+    preguntas.forEach((pregunta) => {
+      pregunta.addEventListener('click', () => {
+        pregunta.nextElementSibling.classList.toggle('hidden');
+      });
+    });

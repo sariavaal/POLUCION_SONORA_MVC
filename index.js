@@ -2,6 +2,7 @@ import express from 'express'
 import csrf from 'csurf'
 import cookieParser from 'cookie-parser'
 import usuarioRoutes from './routes/usuarioRoutes.js'
+import reporteRoutes from './routes/reporteRoutes.js'
 import db from './config/db.js'
 
 //crear la app
@@ -10,6 +11,8 @@ const app = express()
 app.use(express.urlencoded({extended: true}))
 //Habilitar cookie-parser
 app.use( cookieParser() )
+
+app.use(express.json());
 
 //Habilitar CSRF
 app.use ( csrf({cookie: true}))
@@ -33,6 +36,8 @@ app.use(express.static('public'))
 
 //routing
 app.use('/auth', usuarioRoutes)
+app.use('/', reporteRoutes)
+
 
 //Definir un puerto y conecta la aplicacion
 const port= process.env.PORT || 3000;
