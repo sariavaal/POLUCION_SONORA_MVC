@@ -1,5 +1,5 @@
 import express from 'express';
-import { inicio, formularioReporte } from '../controllers/reporteController.js';
+import { inicio, formularioReporte, crearReporte } from '../controllers/reporteController.js';
 import { autenticacionMiddleware } from '../helpers/tokens.js';
 import jwt from 'jsonwebtoken'
 
@@ -18,5 +18,6 @@ router.get('/logout', autenticacionMiddleware, (req, res) => {
 // Rutas protegidas
 router.get('/reportes', autenticacionMiddleware, inicio);
 router.get('/reportes/crear', autenticacionMiddleware, formularioReporte);
+router.post('/reportes/crear', autenticacionMiddleware, crearReporte);
 
 export default router;

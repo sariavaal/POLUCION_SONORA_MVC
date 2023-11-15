@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken'
 import {verificarJWT} from '../helpers/tokens.js'
+import Reporte from '../models/Reporte.js';
+import { check, validationResult } from 'express-validator';
 
 const inicio = (req, res) => {
     // Extraer la información del usuario desde el token almacenado en la cookie
@@ -16,7 +18,7 @@ const inicio = (req, res) => {
         pagina: 'Preguntas Frecuentes',
         barra: true,
         csrfToken : req.csrfToken(),
-        mensaje: `¡Bienvenido, ${usuario.nombre}!` // Puedes utilizar el nombre del usuario en el mensaje
+        mensaje: `¡Bienvenido, ${usuario.nombre}!` 
       });
     } else {
       // Manejar el caso en el que la verificación del token falla o no hay información del usuario
@@ -24,7 +26,7 @@ const inicio = (req, res) => {
       res.render('reportes/inicio', {
         pagina: 'Preguntas Frecuentes',
         barra: true,
-        mensaje: '¡Bienvenido!' // Puedes proporcionar un mensaje predeterminado o manejarlo según tu lógica
+        mensaje: '¡Bienvenido!' 
       });
     }
   };
@@ -33,13 +35,20 @@ const inicio = (req, res) => {
     res.render('reportes/crear', {
         pagina: 'Crear Reporte',
         barra: true,
-        csrfToken : req.csrfToken()
     })
 }
-  
+
+const crearReporte = (req, res) =>{
+  res.render('reportes/crear', {
+      pagina: 'Crear Reporte',
+      barra: true,
+  })
+}
 
 
 export {
     inicio,
-    formularioReporte
+    formularioReporte,
+    crearReporte
+    
 }
