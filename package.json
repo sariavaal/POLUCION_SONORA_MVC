@@ -9,7 +9,10 @@
     "server": "nodemon index.js",
     "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
     "js": "webpack --watch",
-    "dev": "concurrently \"npm run css\" \"npm run js\""
+    "dev": "concurrently \"npm run css\" \"npm run js\"",
+    "db:importar": "node ./seeders/usuarioSeed.js -i",
+    "db:eliminar": "node ./seeders/usuarioSeed.js -e"
+    
   },
   "repository": {
     "type": "git",
@@ -44,7 +47,7 @@
     "mysql2": "^3.6.3",
     "nodemailer": "^6.9.7",
     "pug": "^3.0.2",
-    "sequelize": "^6.34.0",
+    "sequelize": "^6.35.0",
     "validator": "^13.11.0"
   },
   "devDependencies": {

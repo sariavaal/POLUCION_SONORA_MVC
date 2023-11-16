@@ -13,7 +13,7 @@ block contenido
           // Descripción del reporte
           div
             label(for='descripcion', class='block text-sm font-bold text-black uppercase mt-2') Descripción del Reporte
-            textarea.form-control.mt-1.w-full(rows='4', name='descripcion', placeholder='Escribe tu descripción aquí...')
+            textarea.form-control.mt-1.w-full(rows='4', name='descripcion', placeholder='Descripción del reporte')
 
           // Nivel de Ruido
           div
@@ -39,7 +39,8 @@ block contenido
             input(type="hidden" name="calle" id="calle")
             input(type="hidden" name="lat" id="lat")
             input(type="hidden" name="lng" id="lng")
-
+          div
+            input(type="hidden" name="estado" value="pendiente" class="bg-blue-500 text-white p-2")
           div
             input(class="w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer mt-4", type="submit", value="Enviar reporte")
 
