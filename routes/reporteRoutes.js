@@ -1,12 +1,12 @@
 import express from 'express';
-import { inicio, formularioReporte, crearReporte } from '../controllers/reporteController.js';
-import { autenticacionMiddleware } from '../helpers/tokens.js';
-import jwt from 'jsonwebtoken'
+import { inicio, formularioReporte, crearReporte, agregarImagen} from '../controllers/reporteController.js';
+import { protegerRuta } from '../middleware/protegerRuta.js';
+import { body } from "express-validator"
 
 const router = express.Router();
 
 const tokensRevocados = new Set();
-router.get('/logout', autenticacionMiddleware, (req, res) => {
+router.get('/logout', protegerRuta, (req, res) => {
     // Invalidar el token almacenado en el lado del servidor (opcional)
     tokensRevocados.add(req.cookies._token);
 
@@ -16,8 +16,19 @@ router.get('/logout', autenticacionMiddleware, (req, res) => {
     res.redirect('/auth/login'); // Redirige a la página de inicio u otra página después de cerrar sesión
 });
 // Rutas protegidas
-router.get('/reportes', autenticacionMiddleware, inicio);
-router.get('/reportes/crear', autenticacionMiddleware, formularioReporte);
-router.post('/reportes/crear', autenticacionMiddleware, crearReporte);
+router.get('/reportes', protegerRuta, inicio);
+router.get('/reportes/crear', protegerRuta, formularioReporte);
+router.post('/reportes/crear', protegerRuta,
+body('descripcion')
+.notEmpty().withMessage('La descripcion no puede ir vacia'),
+body('nivelRuido')
+.notEmpty().withMessage('El nivel de ruido es obligatorio'),
+body('lat')
+.notEmpty().withMessage('Por favor, ubica la dirección en el mapa'),
+crearReporte);
+
+router.get('/reportes/agregar-imagen/:id', agregarImagen)
+router.post('/reportes/agregar-imagen/:id', agregarImagen)
+
 
 export default router;

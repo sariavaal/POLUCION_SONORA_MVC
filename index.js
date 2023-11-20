@@ -5,9 +5,10 @@ import usuarioRoutes from './routes/usuarioRoutes.js'
 import reporteRoutes from './routes/reporteRoutes.js'
 import db from './config/db.js'
 
-//crear la app
+
+
+//crear la app- usos globales
 const app = express()
-//habilitar lectura de datos de formularios
 app.use(express.urlencoded({extended: true}))
 //Habilitar cookie-parser
 app.use( cookieParser() )

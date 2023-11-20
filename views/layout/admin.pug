@@ -7,11 +7,9 @@ html(lang="es")
         block styles
         link(rel="stylesheet", href="/css/app.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css")
-       
-
+        block styles
     body.min-h-screen.bg-gray-200
-        if barra
-            include includes/header-admin
+        include includes/header-admin
         main(class="mx-auto container mt-5 px-2")
         block contenido
 

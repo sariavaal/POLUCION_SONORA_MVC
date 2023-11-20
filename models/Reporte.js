@@ -31,7 +31,8 @@ const Reporte = db.define('reportes', {
     type: DataTypes.ENUM('pendiente', 'atendido'), 
     allowNull: false,
     defaultValue: 'pendiente', // Valor por defecto al crear un nuevo reporte
-  },
+  }, 
+      
 });
 
 export default Reporte;
