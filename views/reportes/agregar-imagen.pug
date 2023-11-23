@@ -2,6 +2,7 @@ extends ../layout/index
 
 block styles
   link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css")
+  meta(name="csrf-token" content= csrfToken)
 
 block contenido
   .py-10
@@ -10,10 +11,10 @@ block contenido
     h2.text-center.text-2xl.font-extrabold= pagina
     .mt-8.mx-auto.max-w-lg
     div(class="bg-green-200 shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10")
-        form(class="dropzone border-dashed border-2 w-full min:h-96 h-auto rounded flex-col justify-center items-center" method="POST" action="/reportes/crear" noValidate)
+        form(id="imagen" class="dropzone border-dashed border-2 w-full min:h-96 h-auto rounded flex-col justify-center items-center" method="POST" action=`/reportes/agregar-imagen/${reporte.id}` noValidate)
           input(type="hidden" name="_csrf" value= csrfToken)
           
-        input( class="mt-5 w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer" type="submit" value= "Enviar Reporte")
+        button(id="publicar" class="mt-5 w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 uppercase cursor-pointer" type="button") Enviar Reporte
 
 
             

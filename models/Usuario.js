@@ -1,7 +1,6 @@
-import {DataTypes} from 'sequelize'
 import bcrypt from 'bcrypt'
 import db from '../config/db.js'
-
+import {DataTypes} from 'sequelize'
 const Usuario = db.define('usuarios', {
     nombre: {
         type: DataTypes.STRING,
@@ -40,7 +39,10 @@ const Usuario = db.define('usuarios', {
             }
         }
     }
-})
+});
+
+
+
 //Metodos personalizados
 Usuario.prototype.verificarPassword = function (password){
     return bcrypt.compareSync(password, this.password);

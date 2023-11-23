@@ -1,5 +1,6 @@
-import { DataTypes } from 'sequelize';
 import db from '../config/db.js';
+import { DataTypes } from 'sequelize';
+import Usuario from './Usuario.js';
 
 const Reporte = db.define('reportes', {
   descripcion: {
@@ -11,28 +12,43 @@ const Reporte = db.define('reportes', {
     allowNull: false,
   },
   imagen: {
-    type: DataTypes.STRING,  
-    allowNull: true,  // Puede ser nulo si aún no se proporciona una imagen
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   calle: {
     type: DataTypes.STRING(60),
     allowNull: false,
   },
-  lat:{
+  lat: {
     type: DataTypes.STRING,
     allowNull: false,
-
   },
-  lng:{
+  lng: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   estado: {
-    type: DataTypes.ENUM('pendiente', 'atendido'), 
+    type: DataTypes.ENUM('pendiente', 'atendido'),
     allowNull: false,
-    defaultValue: 'pendiente', // Valor por defecto al crear un nuevo reporte
-  }, 
-      
+    defaultValue: 'pendiente',
+  },
+  publicado: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+},
+  usuarioId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Usuarios', // Corregido aquí, utiliza el nombre de la tabla
+      key: 'id',
+    },
+  },
 });
+
+Reporte.associate = (models) => {
+  Reporte.belongsTo(models.Usuario, { as: 'usuario', foreignKey: 'usuarioId' });
+};
 
 export default Reporte;
