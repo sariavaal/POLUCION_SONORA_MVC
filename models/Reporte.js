@@ -41,7 +41,7 @@ const Reporte = db.define('reportes', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Usuarios', // Corregido aquí, utiliza el nombre de la tabla
+      model: 'Usuarios', 
       key: 'id',
     },
   },
