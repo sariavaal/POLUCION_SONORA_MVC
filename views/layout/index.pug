@@ -12,7 +12,11 @@ html(lang="es")
     body.min-h-screen.bg-gray-200
         if barra
             include includes/header-admin
+        
         main(class="mx-auto container mt-5 px-2")
         block contenido
+        if (volverAlInicio)
+            div(class="flex flex-col items-center justify-center mt-10")
+                a(href="/reportes" class="bg-green-600 py-2 px-10 rounded-lg text-white font-bold uppercase") Volver al inicio
 
         block scripts 

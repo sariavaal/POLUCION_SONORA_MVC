@@ -11,7 +11,7 @@ block contenido
     h2.text-center.text-2xl.font-extrabold= pagina
     .mt-8.mx-auto.max-w-lg
     div(class="bg-green-200 shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10")
-        form(id="imagen" class="dropzone border-dashed border-2 w-full min:h-96 h-auto rounded flex-col justify-center items-center" method="POST" action=`/reportes/agregar-imagen/${reporte.id}` noValidate)
+        form(id="imagen" name="imagen" class="dropzone border-dashed border-2 w-full min:h-96 h-auto rounded flex-col justify-center items-center" method="POST" action=`/reportes/agregar-imagen/${reporte.id}` enctype="multipart/form-data" noValidate)
           input(type="hidden" name="_csrf" value= csrfToken)
           
         button(id="publicar" class="mt-5 w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 uppercase cursor-pointer" type="button") Enviar Reporte

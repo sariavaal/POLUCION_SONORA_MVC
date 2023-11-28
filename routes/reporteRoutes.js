@@ -1,5 +1,5 @@
 import express from 'express';
-import { inicio, formularioReporte, crearReporte, agregarImagen, almacenarImagenes} from '../controllers/reporteController.js';
+import { inicio, formularioReporte, crearReporte, agregarImagen, almacenarImagenes, mostrarReportes, formularioEdicionUsuario, actualizarPerfil} from '../controllers/reporteController.js';
 import { body } from "express-validator"
 import { protegerRuta } from '../middleware/protegerRuta.js';
 import upload from '../middleware/subirImagen.js';
@@ -35,9 +35,17 @@ agregarImagen
 
 router.post('/reportes/agregar-imagen/:id',
     protegerRuta,
-    upload.array('imagen'),
+    upload.any('imagen',5),  
     almacenarImagenes
-)
+);
+router.get('/reportes/mis-reportes',
+ protegerRuta, 
+ mostrarReportes);
+
+ router.get('/reportes/mi-perfil', protegerRuta, formularioEdicionUsuario);
+ router.post('/reportes/mi-perfil', protegerRuta, actualizarPerfil);
 
 
 export default router;
+
+

@@ -4,6 +4,7 @@ header.bg-green-600.p-4
             span.font-normal Ruido
 
         nav(class="my-1 text-sm md:flex md:items-center md:gap-3 font-bold text-white hidden")
-            a(href="") Mis reportes
-            a(href="") Mi Perfil
-            a(class="bg-green-800 py-2 px-10 rounded-lg" href="/logout") Cerrar sesión 
+            a(href="/reportes" class="flex items-center space-x-3 rtl:space-x-reverse uppercase") Inicio
+            a(href="/reportes/mis-reportes" class="flex items-center space-x-3 rtl:space-x-reverse uppercase") Mis reportes
+            a(href="/reportes/mi-perfil" class="flex items-center space-x-3 rtl:space-x-reverse uppercase") Mi Perfil
+            a(class="bg-green-800 py-2 px-10 rounded-lg uppercase" href="/logout") Cerrar sesión 
