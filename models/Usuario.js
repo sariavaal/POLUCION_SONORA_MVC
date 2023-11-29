@@ -22,6 +22,11 @@ const Usuario = db.define('usuarios', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    rol: {
+        type: DataTypes.ENUM('admin', 'user'),
+        allowNull: false,
+        defaultValue: 'user'
+    },
     token: DataTypes.STRING,
     confirmado: DataTypes.BOOLEAN  
 }, { //hashear password con bcrypt

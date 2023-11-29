@@ -12,7 +12,8 @@ html(lang="es")
     body.min-h-screen.bg-gray-200
         if barra
             include includes/header-admin
-        
+        if navbar 
+            include includes/adminnavbar
         main(class="mx-auto container mt-5 px-2")
         block contenido
         if (volverAlInicio)

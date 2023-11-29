@@ -3,6 +3,7 @@ import { inicio, formularioReporte, crearReporte, agregarImagen, almacenarImagen
 import { body } from "express-validator"
 import { protegerRuta } from '../middleware/protegerRuta.js';
 import upload from '../middleware/subirImagen.js';
+import { verificarAdmin } from '../middleware/verificarAdmin.js';
 
 const router = express.Router();
 

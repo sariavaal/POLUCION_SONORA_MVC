@@ -29,6 +29,7 @@ if (!errores.isEmpty()) {
 const {email, password} = req.body
     //comprobar si el usuario existe
     const usuario = await  Usuario.findOne({where: {email}})
+    console.log('Usuario encontrado:', usuario);
     if(!usuario){
         return res.render('auth/login', {
             pagina: 'Iniciar sesión',
@@ -53,17 +54,24 @@ const {email, password} = req.body
             csrfToken : req.csrfToken(),
             errores: [{msg: 'La contraseña es incorrecta'}]
         });
+        
 
     }
+    
     //Autenticar al usuario
-    const token = generarJWT({id: usuario.id, nombre: usuario.nombre})
-
+    const token = generarJWT({
+        id: usuario.id,
+        nombre: usuario.nombre,
+        rol: usuario.rol,
+        apellido: usuario.apellido
+    });
     //Almacenar en un cookie
     return res.cookie('_token', token, {
         httpOnly: true,
         //secure: true,
         //sameSite: true
     }).redirect('/reportes')
+    
 
 }
 

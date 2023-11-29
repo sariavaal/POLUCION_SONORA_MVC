@@ -7,30 +7,40 @@ import Usuario from '../models/Usuario.js';
 const inicio = (req, res) => {
   // Extraer la información del usuario desde el token almacenado en la cookie
   const token = req.cookies._token;
+  console.log('Valor de la cookie _token:', req.cookies._token);
+
 
   // Decodificar el token para obtener la información del usuario
   const usuario = verificarJWT(token);
+  console.log('Usuario después de verificarJWT:', usuario);
+  
 
   // Verificar si la verificación del token tuvo éxito y si hay información del usuario
   if (usuario && usuario.nombre) {
-    //console.log(usuario);
+    // Verificar si el usuario tiene el rol de administrador
+    if (usuario.rol === 'admin') {
+      // Si el usuario es un administrador, redirigir a la ruta de inicioAdmin
+      return res.redirect('/reportes/admin/inicioAdmin');
+    }
 
-    res.render('reportes/inicio', {
+    // Si no es administrador, mostrar la vista normal
+    return res.render('reportes/inicio', {
       pagina: 'Preguntas Frecuentes',
       barra: true,
       csrfToken: req.csrfToken(),
       mensaje: `¡Bienvenido, ${usuario.nombre}!`
     });
-  } else {
-    // Manejar el caso en el que la verificación del token falla o no hay información del usuario
-    console.error('Error al verificar el token o no hay información del usuario');
-    res.render('reportes/inicio', {
-      pagina: 'Preguntas Frecuentes',
-      barra: true,
-      mensaje: '¡Bienvenido!'
-    });
   }
+
+  // Manejar el caso en que la verificación del token falla o no hay información del usuario
+  console.error('Error al verificar el token o no hay información del usuario');
+  return res.render('reportes/inicio', {
+    pagina: 'Preguntas Frecuentes',
+    barra: true,
+    mensaje: '¡Bienvenido!'
+  });
 };
+
 
 const formularioReporte = (req, res) => {
   res.render('reportes/crear', {

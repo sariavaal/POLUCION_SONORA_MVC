@@ -3,6 +3,7 @@ import csrf from 'csurf'
 import cookieParser from 'cookie-parser'
 import usuarioRoutes from './routes/usuarioRoutes.js'
 import reporteRoutes from './routes/reporteRoutes.js'
+import adminRoutes from './routes/adminRoutes.js'
 import db from './config/db.js'
 
 
@@ -38,6 +39,7 @@ app.use(express.static('public'))
 //routing
 app.use('/auth', usuarioRoutes)
 app.use('/', reporteRoutes)
+app.use ('/reportes/admin', adminRoutes)
 
 
 //Definir un puerto y conecta la aplicacion

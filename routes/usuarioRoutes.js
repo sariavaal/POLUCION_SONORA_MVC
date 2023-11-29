@@ -1,5 +1,7 @@
 import express from 'express'
 import { formularioLogin,autenticar,formularioRegistro,registrar,confirmar,formularioOlvidePassword,resetPassword, comprobarToken, nuevoPassword } from '../controllers/usuarioController.js';
+import { verificarAdmin } from '../middleware/verificarAdmin.js';
+import { protegerRuta } from '../middleware/protegerRuta.js';
 
 const router = express.Router();
 
