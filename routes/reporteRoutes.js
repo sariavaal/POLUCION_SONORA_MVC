@@ -44,7 +44,12 @@ router.get('/reportes/mis-reportes',
  mostrarReportes);
 
  router.get('/reportes/mi-perfil', protegerRuta, formularioEdicionUsuario);
- router.post('/reportes/mi-perfil', protegerRuta, actualizarPerfil);
+ router.post('/reportes/mi-perfil', protegerRuta,
+ body('nombre').notEmpty().withMessage('El nombre es obligatorio').isLength({ max: 30 }).withMessage('El nombre no puede superar los 30 caracteres()'),
+ body('apellido').notEmpty().withMessage('El apellido es obligatorio').isLength({ max: 30 }).withMessage('El apellido no puede superar los 30 caracteres()'),
+ body('email').notEmpty().withMessage('El email es obligatorio').isEmail().withMessage('Eso no parece un email').isLength({ max: 30 }).withMessage('El email no puede superar los 30 caracteres()'),
+ body('telefono').notEmpty().withMessage('El telefono es obligatorio'),  
+ actualizarPerfil);
 
 
 export default router;

@@ -4,10 +4,11 @@ block contenido
   .py-10
     h1.text-4xl.my-10.font-extrabold.text-center Alerta
       span.font-normal Ruido
-    h2.text-center.text-2xl.font-extrabold= pagina
     p.text-xl.font-bold.text-center.my-10= mensaje
 
     // Sección de preguntas y respuestas
+    div.flex.items-center.justify-center.mt-4
+      a(href="/reportes/crear" class="bg-green-600 hover:bg-green-800 text-white uppercase font-bold py-2 px-4 rounded-full cursor-pointer") Ir a Reportar
     div(class="max-w-xl mx-auto my-10")
       div.bg-green-400.rounded-md.p-8.px-4
         div.bg-green-300.rounded-md.p-8.px-4.mb-4
@@ -33,30 +34,8 @@ block contenido
                     h2.text-2xl.font-semibold.question
                         | ¿Cuándo puedo denunciar?
                     p.respuesta.hidden.mt-2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, dolores atque? Nulla amet consequatur distinctio accusantium perferendis? Repellat odio, dignissimos quo delectus sapiente, modi unde deserunt possimus ipsum ipsa esse?
-        div.bg-green-300.rounded-md.p-8.px-4.mb-4
-          div.flex.items-center.cursor-pointer
-            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
-            div.w-full
-                div.flex.flex-col
-                    h2.text-2xl.font-semibold.question ¿Pregunta 3?
-                    p.respuesta.hidden.mt-2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet eligendi neque, nesciunt vel dolore unde dicta asperiores reiciendis! Quod dolor eveniet possimus cumque commodi architecto, voluptas praesentium molestias quo nesciunt?
-        div.bg-green-300.rounded-md.p-8.px-4.mb-4
-          div.flex.items-center.cursor-pointer
-            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
-            div.w-full
-                div.flex.flex-col
-                    h2.text-2xl.font-semibold.question ¿Pregunta 3?
-                    p.respuesta.hidden Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia totam cum reprehenderit fuga doloremque facere illo similique ullam corrupti. Cupiditate quod nesciunt sit eaque architecto quisquam quibusdam. Nemo, impedit quam!
-        div.bg-green-300.rounded-md.p-8.px-4.mb-4
-          div.flex.items-center.cursor-pointer
-            i.fas.fa-arrow-down.text-gray-600.text-lg.mr-2
-            div.w-full
-                div.flex.flex-col
-                    h2.text-2xl.font-semibold.question ¿Pregunta 3?
-                    p.respuesta.hidden Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, vitae excepturi rem minus sunt veritatis veniam sint deserunt ducimus cumque placeat? Accusantium provident optio facilis at nisi iste iure beatae.
-        // Enlace para realizar un reporte
-        div.flex.items-center.justify-center.mt-4
-            a(href="/reportes/crear" class="bg-green-600 hover:bg-green-800 text-white uppercase font-bold py-2 px-4 rounded-full cursor-pointer") Realizar un Reporte
+     
+      
 
   // Script para manejar los desplegables
   script.

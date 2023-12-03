@@ -25,7 +25,7 @@ const inicio = (req, res) => {
 
     // Si no es administrador, mostrar la vista normal
     return res.render('reportes/inicio', {
-      pagina: 'Preguntas Frecuentes',
+      pagina: 'Inicio',
       barra: true,
       csrfToken: req.csrfToken(),
       mensaje: `¡Bienvenido, ${usuario.nombre}!`
@@ -166,42 +166,55 @@ const almacenarImagenes = async (req, res, next) => {
 
 const mostrarReportes = async (req, res) => {
   try {
-    // Obtener todos los reportes
-    const reportes = await Reporte.findAll();
+    // Obtener el ID del usuario actual desde la sesión
+    const idUsuario = req.user.id;
 
-    // Obtener los nombres de usuario para cada reporte
+    // Obtener todos los reportes asociados al usuario actual
+    const reportes = await Reporte.findAll({
+      where: {
+        usuarioId: idUsuario
+      }
+    });
+
+    // Obtener los IDs de los usuarios para los reportes encontrados
     const userIds = reportes.map(reporte => reporte.usuarioId);
+
+    // Obtener la información completa de los usuarios
     const usuarios = await Usuario.findAll({
       attributes: ['id', 'nombre', 'apellido'],
       where: {
         id: userIds
       }
     });
-       // Crear un objeto de mapeo para asociar el ID de usuario con la información completa del usuario
-       const usuarioMap = {};
-       usuarios.forEach(usuario => {
-         usuarioMap[usuario.id] = { nombre: usuario.nombre, apellido: usuario.apellido };
-       });
-   
-       // Asignar el nombre y apellido de usuario a cada reporte
-       reportes.forEach(reporte => {
-         const usuarioInfo = usuarioMap[reporte.usuarioId];
-         reporte.nombreUsuario = usuarioInfo.nombre;
-         reporte.apellidoUsuario = usuarioInfo.apellido;
-         // Verificar si createdAt existe antes de formatear
-         // Formatear la fecha
-          const fechaFormateada = `${reporte.createdAt.getDate()}/${reporte.createdAt.getMonth() + 1}/${reporte.createdAt.getFullYear()}`;
-          reporte.fechaFormateada = fechaFormateada;
 
-          //console.log(reporte);  
+    // Crear un objeto de mapeo para asociar el ID de usuario con la información completa del usuario
+    const usuarioMap = {};
+    usuarios.forEach(usuario => {
+      usuarioMap[usuario.id] = { nombre: usuario.nombre, apellido: usuario.apellido };
+    });
 
-       });
+    // Asignar el nombre y apellido de usuario a cada reporte
+    reportes.forEach(reporte => {
+      const usuarioInfo = usuarioMap[reporte.usuarioId];
+      reporte.nombreUsuario = usuarioInfo.nombre;
+      reporte.apellidoUsuario = usuarioInfo.apellido;
+
+      // Verificar si createdAt existe antes de formatear
+      if (reporte.createdAt) {
+        // Formatear la fecha
+        const fechaFormateada = `${reporte.createdAt.getDate()}/${reporte.createdAt.getMonth() + 1}/${reporte.createdAt.getFullYear()}`;
+        reporte.fechaFormateada = fechaFormateada;
+      }
+
+      //console.log(reporte);
+    });
 
     // Renderizar la vista 'mis-reportes.pug' y pasar los reportes como variable
     res.render('reportes/mis-reportes', {
       reportes,
       pagina: 'Mis Reportes',
-      barra: true
+      barra: true,
+      error: true
     });
   } catch (error) {
     // Manejar errores aquí
@@ -209,6 +222,7 @@ const mostrarReportes = async (req, res) => {
     res.status(500).send('Error al obtener los reportes');
   }
 };
+
 
 const formularioEdicionUsuario = async (req, res) => {
   try {
@@ -229,7 +243,8 @@ const formularioEdicionUsuario = async (req, res) => {
     // Renderizar la vista con los datos del usuario para el formulario de edición
     res.render('reportes/mi-perfil', {
       pagina: 'Editar Perfil',
-      barra: true,
+      barra: usuario.rol !== 'admin',
+      navbar: usuario.rol !== 'user',
       csrfToken: req.csrfToken(),
       usuario: usuario,// Pasar el objeto del usuario a la vista 
     });
@@ -243,6 +258,23 @@ const formularioEdicionUsuario = async (req, res) => {
 
 const actualizarPerfil = async (req, res) => {
   try {
+    // Validar los datos del formulario antes de intentar actualizar el perfil
+    const errores = validationResult(req);
+
+    // Manejar los errores de validación
+    if (!errores.isEmpty()) {
+      console.log('Errores de validación:', errores.array());
+      // Renderizar nuevamente la página con los errores
+      return res.render('reportes/mi-perfil', {
+        pagina: 'Crear Reporte',
+        barra: true,
+        csrfToken: req.csrfToken(),
+        errores: errores.array(),
+        datos: req.body
+      });
+    }
+
+    // Si la validación es exitosa, proceder con la actualización del perfil
     const idUsuario = req.user.id;
     // Obtener los datos actualizados del formulario de edición
     const { nombre, apellido, email, telefono } = req.body;
@@ -262,7 +294,7 @@ const actualizarPerfil = async (req, res) => {
     return res.status(200).render('templates/mensaje', {
       pagina: 'Datos actualizados',
       mensaje: 'Tus datos han sido actualizados con éxito',
-      volverAlInicio: true
+      volverAlInicio: true,
     });
 
   } catch (error) {
@@ -271,6 +303,7 @@ const actualizarPerfil = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al actualizar el perfil' });
   }
 };
+
 
 
 

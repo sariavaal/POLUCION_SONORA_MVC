@@ -11,9 +11,6 @@ block contenido
             table(class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400")
                 thead(class="text-xs text-black uppercase dark:text-gray-400")
                     tr
-                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") ID
-                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Nombre
-                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Apellido
                         th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Descripcion 
                         th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Nivel de Ruido
                         th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Estado 
@@ -23,9 +20,6 @@ block contenido
                 tbody
                     each reporte in reportes
                         tr(class="bg-green border-b dark:bg-green-800 dark:border-green-700 hover:bg-green-50 dark:hover:bg-green-600")
-                            td(class="px-6 py-4 bg-green-300")= reporte.id
-                            td(class="px-6 py-4 bg-green-300")= reporte.nombreUsuario 
-                            td(class="px-6 py-4 bg-green-300")= reporte.apellidoUsuario
                             td(class="px-6 py-4 bg-green-300")= reporte.descripcion
                             td(class="px-6 py-4 bg-green-300")= reporte.nivelRuido
                             td(class="px-6 py-4 bg-green-300")= reporte.estado
