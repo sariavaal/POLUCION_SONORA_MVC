@@ -41,7 +41,6 @@ app.use('/auth', usuarioRoutes)
 app.use('/', reporteRoutes)
 app.use ('/reportes/admin', adminRoutes)
 
-
 //Definir un puerto y conecta la aplicacion
 const port= process.env.PORT || 3000;
 

@@ -1,10 +1,9 @@
 import express from 'express';
 import { verificarAdmin } from '../middleware/verificarAdmin.js'
 import { protegerRuta } from '../middleware/protegerRuta.js';
-import { inicioAdmin } from '../controllers/adminController.js'
+import { inicioAdmin, mostrarReportes, mostrarDetalleReporte } from '../controllers/adminController.js'
 
 const router = express.Router();
-
 //para cerrar sesión
 const tokensRevocados = new Set();
 router.get('/logout', protegerRuta, (req, res) => {
@@ -19,6 +18,8 @@ router.get('/logout', protegerRuta, (req, res) => {
 
 //RUTAS DEL ADMINISTRADOR
 router.get('/inicioAdmin', protegerRuta, verificarAdmin, inicioAdmin )
+router.get('/ver-reportes', protegerRuta, verificarAdmin, mostrarReportes )
+router.get('/detalle-reporte/:id', protegerRuta, verificarAdmin, mostrarDetalleReporte)
 
 
 export default router;

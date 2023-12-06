@@ -3,7 +3,8 @@ export default{
     mode: 'development',
     entry: {
         mapa: './src/js/mapa.js',
-        agregarImagen:'./src/js/agregarImagen.js'
+        agregarImagen:'./src/js/agregarImagen.js',
+        admin: './src/js/admin.js'
     },
     output: {
         filename: '[name].js',
