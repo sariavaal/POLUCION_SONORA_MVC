@@ -112,11 +112,99 @@ const mostrarDetalleReporte = async (req, res) => {
   }
 };
 
+//editar reportes
+const editarReporte = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('ID del reporte:', id);
+
+    const reporte = await Reporte.findByPk(id);
+    console.log('Reporte encontrado:', reporte);
+
+    if (!reporte) {
+      return res.status(404).send('Reporte no encontrado');
+    }
+    const opcionesEnum = ['pendiente', 'atendido']; // Opciones del campo 'estado'
+
+    res.render('admin/editar-reporte', {
+      pagina: 'Alerta Ruido',
+      navbar: true,
+      mensaje: 'Editar Reporte',
+      csrfToken: req.csrfToken(),
+      reporte,
+      opcionesEnum
+    });
+  } catch (error) {
+    console.error('Error al obtener detalles del reporte:', error);
+    res.status(500).json({ mensaje: 'Error interno del servidor' });
+  }
+};
+
+
+
+//actualizar reportes
+const actualizarReporte = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { descripción, nivelRuido, estado } = req.body;
+
+    // Verifica si el campo 'estado' se cambió
+    if (!estado) {
+      return res.status(400).json({ mensaje: 'El campo "estado" es requerido' });
+    }
+
+    // Busca el reporte por ID
+    const reporte = await Reporte.findByPk(id);
+
+    // Verificar si el reporte existe
+    if (!reporte) {
+      return res.status(404).send('Reporte no encontrado');
+    }
+
+    // Actualiza los valores del reporte
+    await reporte.update({
+      descripción,
+      nivelRuido,
+      estado,
+    });
+
+    // Redireccionar
+    return res.status(200).render('templates/mensaje', {
+      pagina: 'Datos actualizados',
+      mensaje: 'El reporte ha sido actualizado con éxito',
+      volverAlInicio: true,
+    });
+
+  } catch (error) {
+    console.error('Error al editar el reporte:', error);
+    res.status(500).json({ mensaje: 'Error interno del servidor' });
+  }
+};
+
+const verUsuarios = async (req, res) => {
+  try {
+    const usuarios = await Usuario.findAll();
+}
+
+ catch (error) {
+  console.error('Error al obtener usuarios:', error);
+}
+
+res.render('admin/mostrar-usuarios', {
+  pagina: 'Alerta Ruido',
+  navbar: true,
+  mensaje: 'Lista de Usuarios',
+  csrfToken: req.csrfToken(),
   
-  
-  
+});
+} 
+
   
 
-export { inicioAdmin,
-    mostrarReportes,
-mostrarDetalleReporte};
+export { 
+  inicioAdmin,
+  mostrarReportes,
+  mostrarDetalleReporte,
+  editarReporte,
+  actualizarReporte,
+  verUsuarios};

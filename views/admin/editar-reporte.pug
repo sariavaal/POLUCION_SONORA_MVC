@@ -1,0 +1,29 @@
+extends ../layout/index
+
+block contenido
+    .py-10
+        h2.text-center.text-2xl.font-extrabold= pagina
+        p.text-xl.font-bold.text-center.my-10= mensaje
+
+        .mt-8.mx-auto.max-w-md
+            .bg-green-400.py-8.px-4.shadow
+                form.space-y-5(method="POST" action=`/reportes/admin/editar-reporte/${reporte.id}` noValidate)
+                    input(type="hidden" name="_csrf" value= csrfToken)
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="nombre") ID 
+                        input#id.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Nombre" type="text" name="id" value= reporte.id) 
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="nombre") Descripción 
+                        input#nombre.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Nombre" type="text" name="descripcion" value= reporte.descripcion) 
+                    div 
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="apellido") Nivel de Ruido 
+                        input#apellido.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="nivelRuido" type="text" name="apellido" value= reporte.nivelRuido)
+                    div
+                        label.block.text-sm.uppercase.text-black-500.mb-2.font-bold(for="nivelRuido") Estado
+                        select#estado.w-full.px-3.py-2.border.border-gray-300.rounded-md( name="estado")
+                            each opcion in opcionesEnum
+                                option(value=opcion, selected=opcion === reporte.estado) #{opcion}
+
+                    
+                    
+                    input( class="w-full bg-green-600 hover:bg-green-800 text-black font-bold py-3 cursor-pointer" type="submit" value= "Actualizar Reporte")
