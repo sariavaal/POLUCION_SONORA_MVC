@@ -18,7 +18,7 @@ Para instalar:
    - EMAIL_PORT=
    - EMAIL_USER=
    - EMAIL_PASSWORD=
-   - BACKEND_URL=http://localhost
+   - BACKEND_URL=
    - JWT_SECRET= 
 4. Comandos del sistema:
    - Para descargar todos los archivos del package.json: `npm i`
