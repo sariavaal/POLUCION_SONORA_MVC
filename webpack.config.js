@@ -4,7 +4,8 @@ export default{
     entry: {
         mapa: './src/js/mapa.js',
         agregarImagen:'./src/js/agregarImagen.js',
-        admin: './src/js/admin.js'
+        admin: './src/js/admin.js',
+        eliminarUsuario: './src/js/eliminarUsuario.js',
     },
     output: {
         filename: '[name].js',

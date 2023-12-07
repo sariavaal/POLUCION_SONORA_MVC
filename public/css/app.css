@@ -729,15 +729,6 @@ html {
     color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
   }
 
-  .menu li > *:not(ul):not(.menu-title):not(details):active,
-.menu li > *:not(ul):not(.menu-title):not(details).active,
-.menu li > details > summary:active {
-    --tw-bg-opacity: 1;
-    background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
-    --tw-text-opacity: 1;
-    color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
-  }
-
   .table tr.hover:hover,
   .table tr.hover:nth-child(even):hover {
     --tw-bg-opacity: 1;
@@ -1051,11 +1042,6 @@ html {
     0 0 0 2px var(--tglbg) inset,
     var(--togglehandleborder);
 }
-.btm-nav > *:where(.active) {
-  border-top-width: 2px;
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
-}
 .btm-nav > *.disabled,
     .btm-nav > *[disabled] {
   pointer-events: none;
@@ -1238,19 +1224,6 @@ html {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
-.menu li > *:not(ul):not(.menu-title):not(details):active,
-.menu li > *:not(ul):not(.menu-title):not(details).active,
-.menu li > details > summary:active {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
-  --tw-text-opacity: 1;
-  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
-}
-.mockup-phone .display {
-  overflow: hidden;
-  border-radius: 40px;
-  margin-top: -25px;
-}
 .mockup-browser .mockup-browser-toolbar .input {
   position: relative;
   margin-left: auto;
@@ -1401,12 +1374,6 @@ html {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
 }
-.table-zebra tr.active,
-    .table-zebra tr.active:nth-child(even),
-    .table-zebra-zebra tbody tr:nth-child(even) {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-}
 .table :where(thead, tbody) :where(tr:not(:last-child)),
     .table :where(thead, tbody) :where(tr:first-child:last-child) {
   border-bottom-width: 1px;
@@ -1503,18 +1470,6 @@ html {
   opacity: 0.3;
   --togglehandleborder: 0 0 0 3px var(--fallback-bc,oklch(var(--bc)/1)) inset,
       var(--handleoffsetcalculator) 0 0 3px var(--fallback-bc,oklch(var(--bc)/1)) inset;
-}
-.btm-nav-xs > *:where(.active) {
-  border-top-width: 1px;
-}
-.btm-nav-sm > *:where(.active) {
-  border-top-width: 2px;
-}
-.btm-nav-md > *:where(.active) {
-  border-top-width: 2px;
-}
-.btm-nav-lg > *:where(.active) {
-  border-top-width: 4px;
 }
 .btn-xs {
   height: 1.5rem;
@@ -1670,9 +1625,6 @@ html {
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
-.overflow-hidden {
-  overflow: hidden;
-}
 .rounded {
   border-radius: 0.25rem;
 }
@@ -1684,9 +1636,6 @@ html {
 }
 .rounded-md {
   border-radius: 0.375rem;
-}
-.rounded-2xl {
-  border-radius: 1rem;
 }
 .border {
   border-width: 1px;
@@ -1987,6 +1936,10 @@ html {
 
   .md\:flex {
     display: flex;
+  }
+
+  .md\:w-auto {
+    width: auto;
   }
 
   .md\:items-center {

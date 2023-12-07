@@ -1,9 +1,11 @@
 import jwt from 'jsonwebtoken'
+import { Op } from 'sequelize';
 import { verificarJWT } from '../helpers/tokens.js'
 import Reporte from '../models/Reporte.js';
 import { check, validationResult } from 'express-validator';
 import Usuario from '../models/Usuario.js';
 import { generarJWT } from '../helpers/tokens.js';
+
 
 // controllers/adminController.js
 
@@ -182,24 +184,108 @@ const actualizarReporte = async (req, res) => {
 };
 
 const verUsuarios = async (req, res) => {
+  let usuarios;
+
   try {
-    const usuarios = await Usuario.findAll();
-}
+    usuarios = await Usuario.findAll({
+      where: {
+        rol: {
+          [Op.ne]: 'admin',
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    return res.status(500).send('Error al obtener usuarios');
+  }
 
- catch (error) {
-  console.error('Error al obtener usuarios:', error);
-}
+  res.render('admin/mostrar-usuarios', {
+    pagina: 'Alerta Ruido',
+    navbar: true,
+    mensaje: 'Lista de Usuarios',
+    csrfToken: req.csrfToken(),
+    usuarios,
+  });
+};
+const editarUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const usuario = await Usuario.findByPk(id);
 
-res.render('admin/mostrar-usuarios', {
-  pagina: 'Alerta Ruido',
-  navbar: true,
-  mensaje: 'Lista de Usuarios',
-  csrfToken: req.csrfToken(),
-  
-});
-} 
+    if (!usuario) {
+      return res.status(404).send('Usuario no encontrado');
+    }
+    const opcionesEnum = ['user', 'admin'];
 
-  
+    // Puedes hacer algo con el usuario aquí, como renderizar una vista de edición
+    res.render('admin/editar-usuario', {
+      pagina: 'Alerta Ruido',
+      navbar: true,
+      csrfToken: req.csrfToken(),
+      mensaje: 'Editar Usuario',
+      usuario,
+      opcionesEnum
+    });
+
+  } catch (error) {
+    console.error('Error al obtener usuario para editar:', error);
+    res.status(500).send('Error al obtener usuario para editar');
+  }
+};
+
+const actualizarUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre, apellido ,email, telefono, rol} = req.body;
+
+    // Verificar si el usuario existe
+    const usuario = await Usuario.findByPk(id);
+
+    if (!usuario) {
+      return res.status(404).send('Usuario no encontrado');
+    }
+
+    // Realizar la actualización
+    await Usuario.update(
+      { nombre, apellido ,email, telefono, rol},
+      { where: { id: usuario.id } }
+    );
+
+    res.render('templates/mensaje', {
+      pagina: 'Alerta Ruido',
+      navbar: true,
+      volverAlInicio: true,
+      mensaje: 'Usuario actualizado correctamente',
+    });
+    
+  } catch (error) {
+    console.error('Error al actualizar usuario:', error);
+    res.status(500).send('Error al actualizar usuario');
+  }
+};
+
+const eliminarUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Verificar si el usuario existe
+    const usuario = await Usuario.findByPk(id);
+    console.log(id, usuario);
+    // Si el usuario no existe, devolver un error 404
+    if (!usuario) {
+      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+    }
+
+    // Eliminar el usuario de la base de datos
+    await usuario.destroy();
+
+  } catch (error) {
+    console.error('Error al eliminar usuario:', error);
+    res.status(500).send('Error al eliminar usuario');
+  }
+};
+
+
 
 export { 
   inicioAdmin,
@@ -207,4 +293,9 @@ export {
   mostrarDetalleReporte,
   editarReporte,
   actualizarReporte,
-  verUsuarios};
+  verUsuarios,
+  editarUsuario,
+  actualizarUsuario,
+eliminarUsuario};
+
+      

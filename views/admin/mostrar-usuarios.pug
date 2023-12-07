@@ -1,6 +1,44 @@
 extends ../layout/index
 
+block styles 
+    meta(name="csrf-token" content= csrfToken)
+
 block contenido
     .py-10
         h2.text-center.text-2xl.font-extrabold= pagina
         p.text-xl.font-bold.text-center.my-10= mensaje
+        
+
+        div(class="flex items-center justify-center mx-auto")
+            table(class="md:w-auto align-center text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400")
+                thead(class="text-xs text-black uppercase dark:text-gray-400")
+                    tr
+                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") ID 
+                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Nombre
+                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Apellido 
+                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Teléfono
+                        th(scope="col" class="px-6 py-3 bg-green-50 dark:bg-green-800") Acciones
+
+                tbody
+                    each usuario in usuarios
+                        tr(class="bg-green border-b dark:bg-green-800 dark:border-green-700 hover:bg-green-50 dark:hover:bg-green-600")
+                            td(class="px-6 py-4 bg-green-300")= usuario.id 
+                            td(class="px-6 py-4 bg-green-300")= usuario.nombre
+                            td(class="px-6 py-4 bg-green-300")= usuario.apellido
+                            td(class="px-6 py-4 bg-green-300")= usuario.telefono
+                            td(class="px-4 py-4 bg-green-300")
+                                input(type="hidden" name="_csrf" value=csrfToken)
+                                a(href=`/reportes/admin/editar-usuario/${usuario.id}`  class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800") EDITAR
+                                
+                                button(class="eliminarUsuarioBtn focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" data-id=`${usuario.id}`) ELIMINAR
+
+
+
+                            
+block scripts  
+    //script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")                      
+    script(src="https://code.jquery.com/jquery-3.6.4.min.js") 
+    script(src="/js/eliminarUsuario.js")        
+ 
+
+              

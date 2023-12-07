@@ -18,8 +18,11 @@ const verificarAdmin = (req, res, next) => {
         }
     } catch (error) {
         // Manejar el error de verificación (token inválido, expirado, etc.)
-        console.error('Error al verificar el token:', error.message);
-        return res.status(401).json({ mensaje: 'Acceso no autorizado' });
+        //console.error('Error al verificar el token:', error.message);
+        return res.render('templates/mensaje', {
+            pagina: 'Alerta Ruido',
+            mensaje: 'Acceso no autorizado, necesitas permisos de administrador para visualizar esta pagina'
+        });
     }
 };
 

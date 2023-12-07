@@ -2,7 +2,7 @@ import express from 'express';
 import { body } from "express-validator"
 import { verificarAdmin } from '../middleware/verificarAdmin.js'
 import { protegerRuta } from '../middleware/protegerRuta.js';
-import { inicioAdmin, mostrarReportes, mostrarDetalleReporte, editarReporte, actualizarReporte, verUsuarios } from '../controllers/adminController.js'
+import { inicioAdmin, mostrarReportes, mostrarDetalleReporte, editarReporte, actualizarReporte, verUsuarios, editarUsuario, actualizarUsuario, eliminarUsuario } from '../controllers/adminController.js'
 
 const router = express.Router();
 //para cerrar sesión
@@ -24,6 +24,10 @@ router.get('/detalle-reporte/:id', protegerRuta, verificarAdmin, mostrarDetalleR
 router.get('/editar-reporte/:id', protegerRuta, verificarAdmin, editarReporte)
 router.post('/editar-reporte/:id', protegerRuta, verificarAdmin, actualizarReporte)
 router.get('/mostrar-usuarios', protegerRuta, verificarAdmin, verUsuarios)
+router.get('/editar-usuario/:id', protegerRuta, verificarAdmin, editarUsuario)
+router.post('/editar-usuario/:id', protegerRuta, verificarAdmin, actualizarUsuario)
+router.delete('/eliminar-usuario/:id', protegerRuta, verificarAdmin, eliminarUsuario);
+
 
 
 
